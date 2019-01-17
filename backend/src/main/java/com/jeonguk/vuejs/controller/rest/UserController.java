@@ -1,8 +1,10 @@
 package com.jeonguk.vuejs.controller.rest;
 
+import com.jeonguk.vuejs.dto.ResponseUser;
 import com.jeonguk.vuejs.dto.UserDTO;
 import com.jeonguk.vuejs.entity.User;
 import com.jeonguk.vuejs.repository.UserRepository;
+import com.jeonguk.vuejs.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class UserController {
 
     public static final String HELLO_TEXT = "Hello from Spring Boot Backend!";
 
+    private final UserService userService;
     private final UserRepository userRepository;
 
     @GetMapping("/hello")
@@ -42,6 +45,12 @@ public class UserController {
     public User getUserById(@PathVariable("id") long id) {
         log.info("Reading user with id " + id + " from database.");
         return userRepository.findById(id).get();
+    }
+
+    @GetMapping("/mapping/user")
+    public ResponseUser getUser() {
+        log.info("controller get User ");
+        return userService.getUser(1L);
     }
 
     //inner class
